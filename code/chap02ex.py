@@ -14,25 +14,25 @@ import first
 import thinkstats2
 
 
+# The mode of a distribution is the most frequent value.
 def Mode(hist):
     """Returns the value with the highest frequency.
-
     hist: Hist object
-
     returns: value from Hist
     """
-    return 0
-
+    # max is a python function which takes iterable and returns highest value
+    # if it is dictionary it takes the key (frequency) as comparison value not the "value"!
+    # we are not interested in frequency but the "value"
+    frequency, value = max([(frequency, value) for value, frequency in hist.Items()]) 
+    return value
 
 def AllModes(hist):
     """Returns value-freq pairs in decreasing order of frequency.
-
     hist: Hist object
-
     returns: iterator of value-freq pairs
     """
-    return []
-
+    # itemgetter docu: https://docs.python.org/3/howto/sorting.html
+    return sorted(hist.Items(), key=itemgetter(1), reverse=True)
 
 def main(script):
     """Tests the functions in this module.
@@ -57,5 +57,6 @@ def main(script):
     print('%s: All tests passed.' % script)
 
 
+# sys.argv is a list in Python, which contains the command-line arguments passed to the script.
 if __name__ == '__main__':
     main(*sys.argv)
